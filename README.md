@@ -1,8 +1,9 @@
 # Overview
 
 The C2Sv1.1 Camera & Power Dashboard allows users to easily interface with the C2Sv1.1 Processor board to retrieve image and power data via USB.
-
 The dashboard connects to C2Sv1.1 via COM port through a USB-C connection.
+
+A link to the hosted page can be found [here](https://perthaerospacestudentteam.github.io/C2S-Dashboard/), alternatively: https://perthaerospacestudentteam.github.io/C2S-Dashboard/
 
 > [!IMPORTANT]
 > A **USB data cable** must be used. If you are unsure of the cable type, try plugging your phone into your computer/laptop. If it is a data cable, it will recognise your phone as a device - if not, it is a non-data cable.
