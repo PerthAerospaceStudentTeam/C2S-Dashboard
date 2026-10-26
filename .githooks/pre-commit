@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# Get the short hash of the commit about to be made (or current HEAD if amending)
-COMMIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "dev")
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+COMMIT_HASH=$(git rev-parse --short HEAD)
+HTML_FILE="index.html"
 
-# If this is a fresh repo with no commits yet, fallback
-if [ "$COMMIT_HASH" = "dev" ]; then
-  COMMIT_HASH="local"
+if [ -f "$HTML_FILE" ]; then
+  sed -i "s/git:[^#]*#[A-Za-z0-9_.-]*/git:$BRANCH#$COMMIT_HASH/g" "$HTML_FILE"
+  git add "$HTML_FILE"
 fi
 
 # Path to your HTML file relative to root
