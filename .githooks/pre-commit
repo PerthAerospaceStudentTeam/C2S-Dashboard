@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Get the short hash of the commit about to be made (or current HEAD if amending)
+COMMIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "dev")
+
+# If this is a fresh repo with no commits yet, fallback
+if [ "$COMMIT_HASH" = "dev" ]; then
+  COMMIT_HASH="local"
+fi
+
+# Path to your HTML file relative to root
+HTML_FILE="index.html"
+
+# If you use a different path or filename, change it above. 
+# This uses sed to find 'git:main#...' and updates it with the latest short hash
+if [ -f "$HTML_FILE" ]; then
+  # Cross-platform sed adjustment (macOS vs Linux)
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s/git:main#[A-Za-z0-9_.-]*/git:main#$COMMIT_HASH/g" "$HTML_FILE"
+  else
+    sed -i "s/git:main#[A-Za-z0-9_.-]*/git:main#$COMMIT_HASH/g" "$HTML_FILE"
+  fi
+  
+  # Stage the updated HTML file so it's included in the current commit automatically
+  git add "$HTML_FILE"
+fi
